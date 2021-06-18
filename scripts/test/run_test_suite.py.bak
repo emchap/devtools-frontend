@@ -19,7 +19,7 @@ scripts_path = os.path.join(ROOT_DIRECTORY, 'scripts')
 sys.path.append(scripts_path)
 
 import devtools_paths
-from . import test_helpers
+import test_helpers
 
 
 def parse_options(cli_args):
@@ -94,7 +94,7 @@ def run_test():
     if OPTIONS.chrome_binary:
         chrome_binary = OPTIONS.chrome_binary
         if not test_helpers.check_chrome_binary(chrome_binary):
-            print(('Unable to find a Chrome binary at \'%s\'' % chrome_binary))
+            print('Unable to find a Chrome binary at \'%s\'' % chrome_binary)
             sys.exit(1)
 
     if OPTIONS.chrome_features:
@@ -114,12 +114,12 @@ def run_test():
     test_suite = OPTIONS.test_suite
     test_file = OPTIONS.test_file
 
-    print(('Using Chromium binary ({}{})\n'.format(chrome_binary, ' ' + chrome_features if chrome_features else '')))
-    print(('Using Test Suite (%s)\n' % test_suite))
-    print(('Using target (%s)\n' % OPTIONS.target))
+    print('Using Chromium binary ({}{})\n'.format(chrome_binary, ' ' + chrome_features if chrome_features else ''))
+    print('Using Test Suite (%s)\n' % test_suite)
+    print('Using target (%s)\n' % OPTIONS.target)
 
     if test_file is not None:
-        print(('Testing file (%s)' % test_file))
+        print('Testing file (%s)' % test_file)
 
     cwd = devtools_paths.devtools_root_path()
     test_suite_path = os.path.join(cwd, 'out', OPTIONS.target, 'gen', 'test',

@@ -17,7 +17,7 @@ import sys
 
 if sys.version_info[0] < 3:
     # pylint: disable=redefined-builtin
-    str = str
+    str = unicode
 
 
 class FakeHost(object):
@@ -104,7 +104,7 @@ class FakeHost(object):
         self.dirs.add(self.last_tmpdir)
         return self.last_tmpdir
 
-    def print_(self, msg='', end='\n', stream=None):
+    def print_(self, msg=u'', end=u'\n', stream=None):
         stream = stream or self.stdout
         stream.write(str(msg) + str(end))
         stream.flush()

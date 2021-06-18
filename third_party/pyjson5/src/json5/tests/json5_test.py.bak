@@ -57,7 +57,7 @@ class TestLoads(unittest.TestCase):
         else:
           s = b'"\xf6"'
         self.assertEqual(json5.loads(s, encoding='iso-8859-1'),
-                         "\xf6")
+                         u"\xf6")
 
 
     def test_numbers(self):
@@ -99,7 +99,7 @@ class TestLoads(unittest.TestCase):
         self.check_fail('{1: 1}')
 
     def test_identifiers_unicode(self):
-        self.check('{\xc3: 1}', {'\xc3': 1})
+        self.check(u'{\xc3: 1}', {u'\xc3': 1})
 
     def test_null(self):
         self.check('null', None)
@@ -142,20 +142,20 @@ class TestLoads(unittest.TestCase):
         with open(path) as fp:
             obj = json5.load(fp)
         self.assertEqual({
-            'oh': [
-                "we shouldn't forget",
-                "arrays can have",
-                "trailing commas too",
+            u'oh': [
+                u"we shouldn't forget",
+                u"arrays can have",
+                u"trailing commas too",
             ],
-            "this": "is a multi-line string",
-            "delta": 10,
-            "hex": 3735928559,
-            "finally": "a trailing comma",
-            "here": "is another",
-            "to": float("inf"),
-            "while": True,
-            "half": 0.5,
-            "foo": "bar"
+            u"this": u"is a multi-line string",
+            u"delta": 10,
+            u"hex": 3735928559,
+            u"finally": "a trailing comma",
+            u"here": "is another",
+            u"to": float("inf"),
+            u"while": True,
+            u"half": 0.5,
+            u"foo": u"bar"
             }, obj)
 
     def test_strings(self):
@@ -202,10 +202,10 @@ class TestLoads(unittest.TestCase):
         self.check('\r\n1', 1)
         self.check('\t1', 1)
         self.check('\v1', 1)
-        self.check('\uFEFF 1', 1)
-        self.check('\u00A0 1', 1)
-        self.check('\u2028 1', 1)
-        self.check('\u2029 1', 1)
+        self.check(u'\uFEFF 1', 1)
+        self.check(u'\u00A0 1', 1)
+        self.check(u'\u2028 1', 1)
+        self.check(u'\u2029 1', 1)
 
 
 class TestDump(unittest.TestCase):

@@ -64,7 +64,7 @@ def generate_protocol_typescript_definitions():
 
     if typescript_found_errors:
         print('')
-        print(('TypeScript compilation failed on %s' % generator_script_to_compile))
+        print('TypeScript compilation failed on %s' % generator_script_to_compile)
         print('')
         print(typescript_stderr)
         print('')

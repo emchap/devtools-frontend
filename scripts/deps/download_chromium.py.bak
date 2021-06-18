@@ -14,7 +14,7 @@ import shutil
 import stat
 import subprocess
 import sys
-import urllib.request, urllib.parse, urllib.error
+import urllib
 import zipfile
 
 
@@ -55,7 +55,7 @@ def download_and_extract(options):
 
     # Download again and save build number
     try:
-        filehandle, headers = urllib.request.urlretrieve(options.url)
+        filehandle, headers = urllib.urlretrieve(options.url)
     except:
         print("Using curl as fallback. You should probably update OpenSSL.")
         filehandle = io.BytesIO(

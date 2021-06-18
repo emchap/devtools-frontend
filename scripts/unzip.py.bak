@@ -7,7 +7,7 @@ import sys
 import zipfile
 
 if len(sys.argv) < 3:
-    print(('Usage: {} <src> <dest>'.format(sys.argv[0])))
+    print('Usage: {} <src> <dest>'.format(sys.argv[0]))
     print(' <src> full path to zip file to be extracted')
     print(' <dest> full path to destination folder')
     sys.exit(1)

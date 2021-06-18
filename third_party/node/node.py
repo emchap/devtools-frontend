@@ -28,7 +28,7 @@ def RunNode(cmd_parts, output=subprocess.PIPE):
     stdout, stderr = process.communicate()
 
     if process.returncode != 0:
-        print('%s failed:\n%s\n%s' % (cmd, stdout, stderr))
+        print(('%s failed:\n%s\n%s' % (cmd, stdout, stderr)))
         exit(process.returncode)
 
     return stdout

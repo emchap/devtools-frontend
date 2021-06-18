@@ -23,7 +23,7 @@ from ..host import Host
 
 if sys.version_info[0] < 3:
     # pylint: disable=redefined-builtin
-    str = str
+    str = unicode
 
 
 class CoverageTestMixin(object):

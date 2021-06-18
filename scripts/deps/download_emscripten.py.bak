@@ -20,7 +20,7 @@ import zipfile
 if sys.version_info >= (3, ):
     from urllib.request import urlretrieve
 else:
-    from urllib.request import urlretrieve
+    from urllib import urlretrieve
 
 BS = 8192
 STAMP_FILE = 'build-revision'

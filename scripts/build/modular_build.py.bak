@@ -7,7 +7,7 @@
 Utilities for the modular DevTools build.
 """
 
-
+from __future__ import print_function
 
 import collections
 from os import path
@@ -59,7 +59,7 @@ class Descriptors:
 
     def application_json(self):
         result = dict()
-        result['modules'] = list(self.application.values())
+        result['modules'] = self.application.values()
         return json.dumps(result)
 
     def module_resources(self, name):
@@ -154,13 +154,13 @@ class DescriptorLoader:
             extends = self._load_application(extends, all_module_descriptors)
         worker = True if 'worker' in descriptor_json and descriptor_json['worker'] else False
 
-        for (module_name, module) in list(application_descriptor.items()):
+        for (module_name, module) in application_descriptor.items():
             if all_module_descriptors.get(module_name):
                 bail_error('Duplicate definition of module "%s" in %s' % (module_name, application_descriptor_filename))
             module_descriptors[module_name] = self._read_module_descriptor(module_name, application_descriptor_filename)
             all_module_descriptors[module_name] = module_descriptors[module_name]
 
-        for module in list(module_descriptors.values()):
+        for module in module_descriptors.values():
             for dep in module.get('dependencies', []):
                 if dep not in all_module_descriptors:
                     bail_error('Module "%s" (dependency of "%s") not listed in application descriptor %s' %

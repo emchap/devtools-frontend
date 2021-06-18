@@ -83,7 +83,7 @@ def _CheckChangesAreExclusiveToDirectory(input_api, output_api):
     num_affected = len(affected_files)
     for dirs in EXCLUSIVE_CHANGE_DIRECTORIES:
         dir_list = ', '.join(dirs)
-        affected_in_dir = [f for f in affected_files if FileIsInDir(f, dirs)]
+        affected_in_dir = filter(lambda f: FileIsInDir(f, dirs), affected_files)
         num_in_dir = len(affected_in_dir)
         if num_in_dir == 0:
             continue
@@ -566,7 +566,8 @@ def _getFilesToLint(input_api, output_api, lint_config_files,
                                           accepted_endings)
 
         # Exclude front_end/third_party files.
-        files_to_lint = [path for path in files_to_lint if "third_party" not in path]
+        files_to_lint = filter(lambda path: "third_party" not in path,
+                               files_to_lint)
 
         if len(files_to_lint) is 0:
             results.append(

@@ -12,13 +12,13 @@ Builds inspector overlay:
 
 from os import path
 from os.path import join
-from .modular_build import read_file, write_file
+from modular_build import read_file, write_file
 from itertools import tee
 
 import os
 import sys
 import subprocess
-from . import rjsmin
+import rjsmin
 
 try:
     original_sys_path = sys.path
@@ -82,9 +82,9 @@ def main(argv):
                 write_file(join(output_path, filename), css_file)
 
     except:
-        print((
+        print(
             'Usage: %s filename_1 max_size_1 filename_2 max_size_2 ... filename_N max_size_N --input_path <input_path> --output_path <output_path>'
-            % argv[0]))
+            % argv[0])
         raise
 
 

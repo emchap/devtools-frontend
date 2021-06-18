@@ -41,7 +41,7 @@ def popen(arguments, cwd=None):
 
 
 def check_with_node_script(script_path, script_description, args):
-    print((script_description + "..."))
+    print(script_description + "...")
     script_proc_errors_found = False
     exec_command = [
         devtools_paths.node_path(),

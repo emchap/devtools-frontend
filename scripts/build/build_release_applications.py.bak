@@ -10,7 +10,7 @@ Builds applications in release mode:
 and the application loader into a single script.
 """
 
-from io import StringIO
+from cStringIO import StringIO
 from os import path
 from os.path import join
 import copy
@@ -20,10 +20,10 @@ import shutil
 import sys
 import subprocess
 
-from .modular_build import read_file, write_file, bail_error
-from . import modular_build
-from . import rjsmin
-from . import special_case_namespaces
+from modular_build import read_file, write_file, bail_error
+import modular_build
+import rjsmin
+import special_case_namespaces
 
 try:
     import simplejson as json
@@ -49,7 +49,7 @@ def main(argv):
         application_names = argv[1:input_path_flag_index]
         use_rollup = '--rollup' in argv
     except:
-        print(('Usage: %s app_1 app_2 ... app_N --input_path <input_path> --output_path <output_path> --rollup true' % argv[0]))
+        print('Usage: %s app_1 app_2 ... app_N --input_path <input_path> --output_path <output_path> --rollup true' % argv[0])
         raise
 
     loader = modular_build.DescriptorLoader(input_path)
@@ -102,7 +102,8 @@ class ReleaseBuilder(object):
 
     def build_app(self):
         self._build_app_script()
-        for module in [desc for desc in list(self.descriptors.application.values()) if (not desc.get('type'))]:
+        for module in filter(lambda desc: (not desc.get('type')),
+                             self.descriptors.application.values()):
             self._concatenate_dynamic_module(module['name'])
 
     def _build_app_script(self):
@@ -174,7 +175,7 @@ class ReleaseBuilder(object):
     def _concatenate_application_script(self, output):
         output.write('Root.allDescriptors.push(...%s);' % self._release_module_descriptors())
         if self.descriptors.extends:
-            output.write('Root.applicationDescriptor.modules.push(...%s);' % json.dumps(list(self.descriptors.application.values())))
+            output.write('Root.applicationDescriptor.modules.push(...%s);' % json.dumps(self.descriptors.application.values()))
         else:
             output.write('Root.applicationDescriptor = %s;' % self.descriptors.application_json())
 

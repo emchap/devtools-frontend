@@ -18,7 +18,7 @@ import argparse
 scripts_path = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 sys.path.append(scripts_path)
 
-from . import test_helpers
+import test_helpers
 import devtools_paths
 
 
@@ -29,11 +29,11 @@ def run_tests(chrome_binary, target, no_text_coverage, no_html_coverage,
                                     'unittests', 'karma.conf.js')
 
     if not os.path.exists(karmaconfig_path):
-        print(('Unable to find Karma config at ' + karmaconfig_path))
+        print('Unable to find Karma config at ' + karmaconfig_path)
         print('Make sure to set the --ninja-build-name argument to the folder name of "out/target"')
         sys.exit(1)
 
-    print(('Using karma config ' + karmaconfig_path))
+    print('Using karma config ' + karmaconfig_path)
 
     exec_command = [devtools_paths.node_path(), devtools_paths.karma_path(), 'start', test_helpers.to_platform_path_exact(karmaconfig_path)]
 
@@ -76,7 +76,7 @@ def run_unit_tests_on_ninja_build_target(target,
         print('Unable to run, no Chrome binary provided')
         sys.exit(1)
 
-    print(('Using Chromium binary (%s)\n' % chrome_binary))
+    print('Using Chromium binary (%s)\n' % chrome_binary)
 
     errors_found = run_tests(chrome_binary, target, no_text_coverage,
                              no_html_coverage, coverage)

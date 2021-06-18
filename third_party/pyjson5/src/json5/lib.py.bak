@@ -21,7 +21,7 @@ from .parser import Parser
 
 if sys.version_info[0] < 3:
     # pylint: disable=redefined-builtin
-    str = str
+    str = unicode
 
 
 def load(fp, encoding=None, cls=None, object_hook=None, parse_float=None,
@@ -125,12 +125,12 @@ def dumps(obj, compact=False, as_json=False, **kwargs):
 
     t = type(obj)
     if obj == True:
-        return 'true'
+        return u'true'
     elif obj == False:
-        return 'false'
+        return u'false'
     elif obj == None:
-        return 'null'
-    elif t == type('') or t == type(''):
+        return u'null'
+    elif t == type('') or t == type(u''):
         single = "'" in obj
         double = '"' in obj
         if single and double:
@@ -142,13 +142,13 @@ def dumps(obj, compact=False, as_json=False, **kwargs):
     elif t is float or t is int:
         return str(obj)
     elif t is dict:
-        return '{' + ','.join([
-            _dumpkey(k) + ':' + dumps(v) for k, v in list(obj.items())
+        return u'{' + u','.join([
+            _dumpkey(k) + u':' + dumps(v) for k, v in obj.items()
         ]) + '}'
     elif t is list:
-        return '[' + ','.join([dumps(el) for el in obj]) + ']'
+        return u'[' + ','.join([dumps(el) for el in obj]) + u']'
     else:  # pragma: no cover
-        return ''
+        return u''
 
 
 def dump(obj, fp, **kwargs):
